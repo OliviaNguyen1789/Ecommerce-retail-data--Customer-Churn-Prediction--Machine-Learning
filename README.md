@@ -122,20 +122,6 @@ The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, Daysinc
 
 <img width="927" alt="Screen Shot 2025-03-07 at 11 50 17 PM" src="https://github.com/user-attachments/assets/12f2343a-df7e-4a93-ac0a-39a037021eb1" />
 
-**Insights:**
-
-- New customers --> More likely to churn
-- Lower cash back amount --> More likely to churn
-- Higher distance from warehouse to home --> More likely to churn
-- High Complain --> More likely to churn
-
-**Recommendations:**
-
-- For new custotmers: Offer appealling discount or loyalty points and implement onboarding programs to improve customers' engagement
-- For high tenure customers: Provide exclusive loyalty perks .
-- For low cash back customers: introduce a tiered loyalty program (higher spending = more cashback).
-- Distance: Offer free/discounted delivery for high-risk customers; Optimize fulfillment centers.
-- Fast response to customers' complain, offer compensation for severe issue.
   
 | Insights                                                        | Recommendations                                                                                                                                           |
 | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -160,6 +146,8 @@ Apparently, Random Forest model offers the highest f1_score, so it is considered
 ### Improve model 
 To enhance churn prediction model, we will perform hyperparameter tuning with GridSearchCV to find the optimal parameter combination for better performance.
 
+<img width="1104" alt="Screen Shot 2025-03-08 at 12 46 00 AM" src="https://github.com/user-attachments/assets/18bb2fa9-5ae0-46ea-a892-98dff28d657b" />
+
 
 ## V. ML model for segmenting churned users
 
@@ -180,6 +168,9 @@ The inertia decreases slowly from 5 --> the number of cluster = 5
 <img width="558" alt="Screen Shot 2025-03-08 at 12 25 00 AM" src="https://github.com/user-attachments/assets/d979e3b1-2e88-4753-b883-4f566af1930c" />
 
 We calculate the mean values of five key features for each cluster to identify distinct patterns and behaviors within groups of churned customers
+
+<img width="797" alt="Screen Shot 2025-03-08 at 12 48 08 AM" src="https://github.com/user-attachments/assets/5548c3de-7893-4876-83af-49351734ca55" />
+
 
 ### 4.Segmentation and Recommendations for Promotion
 
