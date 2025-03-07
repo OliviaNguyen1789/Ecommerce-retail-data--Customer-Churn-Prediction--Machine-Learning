@@ -178,18 +178,18 @@ We calculate the mean values of five key features for each cluster to identify d
 
 Based on the clustering data provided for churned users, we can identify 5 distinct segments.
 
-Segment 1: High-Value, Satisfied but Inactive users
-Segment 2: High-Value, quite-Satisfied and Active users.
-Segment 3 : High-Value but Frequent complaints users.
-Segment 4: New commers): New, Satisfied but Low-Value users.
-Segment 5 (Occasional Buyers): Low-Value, engagement but frequent complaints.
+- Segment 1: High-Value, Satisfied but Inactive users
+- Segment 2: High-Value, quite-Satisfied and Active users.
+- Segment 3 : High-Value but Frequent complaints users.
+- Segment 4: New commers): New, Satisfied but Low-Value users.
+- Segment 5 (Occasional Buyers): Low-Value, engagement but frequent complaints.
 
 
 #### Promotion Strategy:
 
-Segment 1: Provide personalized recommendations & exclusive Loyalty Discount; Provide a cashback incentive for returning customers.
-Segment 2: Free or Discounted Express Shipping, Personalized Product Recommendations & Bundles.
-Segment 3: free or reduce delivery cost, VIP Customer Care & Priority Support, Surprise "Thank You" Gift or Loyalty Perks
-Segment 4: Time-Limited Bonus Coupon for new customers, Free Gift with Purchase Over Minimum Amount.
-Segment 5: Provide exclusive trial offers and Limited-Time Flash Sale to boost the engagement, Offer customer support follow-up & service improvements.
+- Segment 1: Provide personalized recommendations & exclusive Loyalty Discount; Provide a cashback incentive for returning customers.
+- Segment 2: Free or Discounted Express Shipping, Personalized Product Recommendations & Bundles.
+- Segment 3: free or reduce delivery cost, VIP Customer Care & Priority Support, Surprise "Thank You" Gift or Loyalty Perks
+- Segment 4: Time-Limited Bonus Coupon for new customers, Free Gift with Purchase Over Minimum Amount.
+- Segment 5: Provide exclusive trial offers and Limited-Time Flash Sale to boost the engagement, Offer customer support follow-up & service improvements.
 
