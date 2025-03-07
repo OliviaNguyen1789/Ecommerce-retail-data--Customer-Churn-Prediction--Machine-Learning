@@ -1,4 +1,4 @@
-# -Machine-Learning-Churn-Prediction-
+# [Machine Learning]: Churn Prediction
 
 Author: [Uyen Nguyen]  
 
