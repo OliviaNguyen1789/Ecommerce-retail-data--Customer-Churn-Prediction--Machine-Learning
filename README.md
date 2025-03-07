@@ -106,15 +106,44 @@ The dataset has no duplicate values.
 
 <img width="901" alt="Screen Shot 2025-03-07 at 9 05 07 PM" src="https://github.com/user-attachments/assets/d2385cee-487b-452c-8290-5c9137ac1fe2" />
 
+### 3. Training Random Forest model
 
+<img width="816" alt="Screen Shot 2025-03-07 at 11 38 55 PM" src="https://github.com/user-attachments/assets/5ef9d20d-97c9-4c1e-9334-3db841a682d8" />
 
+### 4. Find out feature importance
 
+<img width="821" alt="Screen Shot 2025-03-07 at 11 46 03 PM" src="https://github.com/user-attachments/assets/d7c4ba95-f6c3-4cba-b6b9-d98ab9708de6" />
 
+<img width="975" alt="Screen Shot 2025-03-07 at 11 46 26 PM" src="https://github.com/user-attachments/assets/f0f29c5d-6ce9-4cd2-8730-944183d5a92a" />
 
+The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, DaysinceLastOrder have a strong impact on churn.
 
+#### Explain the Impact of Feature importance
 
+<img width="927" alt="Screen Shot 2025-03-07 at 11 50 17 PM" src="https://github.com/user-attachments/assets/12f2343a-df7e-4a93-ac0a-39a037021eb1" />
 
+**Insights:**
 
+- New customers --> More likely to churn
+- Lower cash back amount --> More likely to churn
+- Higher distance from warehouse to home --> More likely to churn
+- High Complain --> More likely to churn
+
+**Recommendations:**
+
+- For new custotmers: Offer appealling discount or loyalty points and implement onboarding programs to improve customers' engagement
+- For high tenure customers: Provide exclusive loyalty perks .
+- For low cash back customers: introduce a tiered loyalty program (higher spending = more cashback).
+- Distance: Offer free/discounted delivery for high-risk customers; Optimize fulfillment centers.
+- Fast response to customers' complain, offer compensation for severe issue.
+  
+| Insights                                                        | Recommendations                                                                                                                                           |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| New customers --> higher churn risk                  | Boost new customer engagement through personalized recommendations and exclusive discounts, fostering long-term brand loyalty.|
+| Lower cash back amount --> higher churn risk         | Offer increasing cashback percentages based on total spending, encouraging repeat purchases and long-term engagement.         |
+| Higher distance from warehouse --> higher churn risk | Offer free/discounted delivery for high-risk customers; Optimize fulfillment centers.                                         |
+| High Complain --> higher churn risk                  | Build long-term customer trust by addressing complaints swiftly, following up proactively, and offering personalized solutions that enhance satisfaction. |
+| Customers with recent orders --> higher churn risk   | Implement a quick feedback mechanism after purchase/delivery and analyze this trend across customer segments.                 |
 
 ## IV. ML model for predicting churned users 
 
