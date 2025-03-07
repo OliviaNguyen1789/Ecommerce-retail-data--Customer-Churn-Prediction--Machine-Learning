@@ -14,7 +14,7 @@ II. [Dataset Description](#ii-dataset-description)
 III.[Exploring churn users' behaviour](#iii-exploring-churn-users'-behaviour)  
 IV.[ML model for predicting churned users ](#iv-ml-model-for-predicting-churned-users)  
 V.[ML model for segmenting churned users](#v-ml-model-for-segmenting-churned-users)  
-VI. [Final Conclusion & Recommendations](#vi-final-conclusion--recommendations)
+
 
 ## I. Introduction
 
@@ -147,16 +147,58 @@ The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, Daysinc
 
 ## IV. ML model for predicting churned users 
 
+### Training different models
+
+<img width="771" alt="Screen Shot 2025-03-08 at 12 14 46 AM" src="https://github.com/user-attachments/assets/bafc8619-b533-410c-a23c-a90685341008" />
+
+### Model evaluation
+
+<img width="497" alt="Screen Shot 2025-03-08 at 12 15 15 AM" src="https://github.com/user-attachments/assets/ad0d64e8-c56b-422e-ace4-0c2d114d4198" />
+ 
+Apparently, Random Forest model offers the highest f1_score, so it is considered as base model.
+
+### Improve model 
+To enhance churn prediction model, we will perform hyperparameter tuning with GridSearchCV to find the optimal parameter combination for better performance.
+
 
 ## V. ML model for segmenting churned users
 
-## VI. Final Conclusion & Recommendations 
+### 1. Create Churn user dataset
+<img width="623" alt="Screen Shot 2025-03-08 at 12 22 03 AM" src="https://github.com/user-attachments/assets/c9105809-8eba-4d4e-9781-044553e313c0" />
 
-The analysis has revealed some inefficiencies in manufacturing performance. The most critical problems are:
+### 2. Select the number of cluster
+To determine the optimal number of clusters for segmenting our churned customers, I employ the Elbow Method using K-means clustering.
+
+<img width="597" alt="Screen Shot 2025-03-08 at 12 23 35 AM" src="https://github.com/user-attachments/assets/ebcd1bc8-619c-4226-b08c-6d6f189d86d3" />
+
+<img width="644" alt="Screen Shot 2025-03-08 at 12 23 56 AM" src="https://github.com/user-attachments/assets/1e203bc5-aaed-46d4-87f0-11654f9580c4" />
+
+The inertia decreases slowly from 5 --> the number of cluster = 5
+
+### 3. Model training
+
+<img width="558" alt="Screen Shot 2025-03-08 at 12 25 00 AM" src="https://github.com/user-attachments/assets/d979e3b1-2e88-4753-b883-4f566af1930c" />
+
+We calculate the mean values of five key features for each cluster to identify distinct patterns and behaviors within groups of churned customers
+
+### 4.Segmentation and Recommendations for Promotion
+
+#### The characteristic of each segments
+
+Based on the clustering data provided for churned users, we can identify 5 distinct segments.
+
+Segment 1: High-Value, Satisfied but Inactive users
+Segment 2: High-Value, quite-Satisfied and Active users.
+Segment 3 : High-Value but Frequent complaints users.
+Segment 4: New commers): New, Satisfied but Low-Value users.
+Segment 5 (Occasional Buyers): Low-Value, engagement but frequent complaints.
 
 
+#### Promotion Strategy:
 
-These issues directly impact manufacturing efficiency, delivery performance, and cost control, making them a priority for process improvement.
-
-**Recommendations:**
+Segment 1: Provide personalized recommendations & exclusive Loyalty Discount; Provide a cashback incentive for returning customers.
+Segment 2: Free or Discounted Express Shipping, Personalized Product Recommendations & Bundles.
+Segment 3: free or reduce delivery cost, VIP Customer Care & Priority Support, Surprise "Thank You" Gift or Loyalty Perks
+Segment 4: Time-Limited Bonus Coupon for new customers, Free Gift with Purchase Over Minimum Amount.
+Segment 5: Provide exclusive trial offers and Limited-Time Flash Sale to boost the engagement, Offer customer support follow-up & service improvements.
 
