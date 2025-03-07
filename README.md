@@ -102,6 +102,7 @@ The dataset has no duplicate values.
 
 <img width="578" alt="Screen Shot 2025-03-07 at 8 55 20 PM" src="https://github.com/user-attachments/assets/19527cb3-60c9-4350-b85b-05f6ac046091" />
 
+### 2. Feature engineering
 
 
 
