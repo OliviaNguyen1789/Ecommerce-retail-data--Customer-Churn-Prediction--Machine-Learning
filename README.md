@@ -68,7 +68,7 @@ VI. [Final Conclusion & Recommendations](#vi-final-conclusion--recommendations)
 
 #### Handle missing values
 
-<img width="564" alt="Screen Shot 2025-03-07 at 8 57 37 PM" src="https://github.com/user-attachments/assets/7f2194fb-5c15-42ae-8706-88737ccc8f6f" />
+<img width="599" alt="Screen Shot 2025-03-07 at 11 33 43 PM" src="https://github.com/user-attachments/assets/0a8ecd47-73cb-4ed6-afb0-b3af71b7e3af" />
 
 Because % mising values > 20% and disperse in many columns --> using ML model to impute missing value
 
