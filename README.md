@@ -68,22 +68,61 @@ V.[ML model for segmenting churned users](#v-ml-model-for-segmenting-churned-use
 
 #### Handle missing values
 
-<img width="599" alt="Screen Shot 2025-03-07 at 11 33 43 PM" src="https://github.com/user-attachments/assets/0a8ecd47-73cb-4ed6-afb0-b3af71b7e3af" />
+```sql
+# Check % missing values
+missing_row_percentage = df_raw.isnull().any(axis=1).mean()*100
+print(missing_row_percentage)
+```
+32.96625222024866
 
+```sql
+# Check columns having missing values
+missing_col=df_raw.isnull().sum()
+missing_col = missing_col[missing_col>0]
+missing_col
+```
 Because % mising values > 20% and disperse in many columns --> using ML model to impute missing value
 
-<img width="662" alt="Screen Shot 2025-03-07 at 8 58 08 PM" src="https://github.com/user-attachments/assets/4dcc6803-e05c-45b6-b13d-4e7cbe35b11f" />
-
+```sql
+# Data type of missing columns is float --> imputer mean
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(strategy='mean')
+df_raw[missing_col.index] = imputer.fit_transform(df_raw[missing_col.index])
+df_raw.isnull().sum()
+```
 
 #### Handle duplicate values
 
-<img width="489" alt="Screen Shot 2025-03-07 at 8 53 21 PM" src="https://github.com/user-attachments/assets/35b07fc1-e5d7-4dba-b4dc-f3b5d3813f5b" />
+```sql
+# Check duplicate
+duplicate_count = df_raw.duplicated('CustomerID').sum()
+print(duplicate_count)
+```
 
 The dataset has no duplicate values.
 
 #### Univariate Analysis
 
-<img width="641" alt="Screen Shot 2025-03-07 at 8 54 18 PM" src="https://github.com/user-attachments/assets/42879528-33ef-4074-a7e0-856ccd8abc83" />
+```sql
+# Categorical data:
+cate_cols = df_raw.loc[:, df_raw.dtypes == object].columns.tolist()
+for col in cate_cols:
+    print(f"Unique values of {col}: {df_raw[col].nunique()}")
+```
+
+```sql
+# Numerical data:
+numeric_cols = df_raw.loc[:, df_raw.dtypes != object].columns.tolist()
+for col in numeric_cols:
+    print(f"Unique values of {col}: {df_raw[col].nunique()}")
+
+for col in numeric_cols:
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x=df_raw[col], color='#86D293')
+    plt.title(f'Boxplot of {col}')
+    plt.show()
+```
+
 
 *   Tenure: right-skewed, most customers clustered in 0 - 20
 *   WarehouseToHome: majority of customers having short distances (below 40).
@@ -99,20 +138,83 @@ The dataset has no duplicate values.
 
 
 #### Outlier Detection
+Remove the columns that have a few outliers causing the data to be skewed:
+* Tenuere: >40
+* WarehouseToHome >100
+* NumberOfAddress >15
+* DaySinceLastOrder >20
 
-<img width="578" alt="Screen Shot 2025-03-07 at 8 55 20 PM" src="https://github.com/user-attachments/assets/19527cb3-60c9-4350-b85b-05f6ac046091" />
+```sql
+df = df_raw[
+    (df_raw['Tenure'] <= 40) &
+    (df_raw['WarehouseToHome'] <= 100) &
+    (df_raw['NumberOfAddress'] <= 15) &
+    (df_raw['DaySinceLastOrder'] <= 20)
+]
+df = df.reset_index(drop=True)
+# Check rows_removed
+len(df_raw) - len(df)
+```
 
 ### 2. Feature engineering
 
-<img width="901" alt="Screen Shot 2025-03-07 at 9 05 07 PM" src="https://github.com/user-attachments/assets/d2385cee-487b-452c-8290-5c9137ac1fe2" />
+```sql
+# Encoding columns:
+col_encoding=['PreferredLoginDevice','PreferredPaymentMode','Gender','PreferedOrderCat','MaritalStatus']
+df_encoding = pd.get_dummies(df, columns= col_encoding,drop_first=True)
+df_encoding.head()
+```
 
 ### 3. Training Random Forest model
 
-<img width="816" alt="Screen Shot 2025-03-07 at 11 38 55 PM" src="https://github.com/user-attachments/assets/5ef9d20d-97c9-4c1e-9334-3db841a682d8" />
+```sql
+from sklearn.model_selection import train_test_split
+
+X = df_encoding.drop('Churn', axis=1)
+y = df_encoding['Churn']
+
+# Split data
+X_train, X_tem, y_train, y_tem = train_test_split(X, y, test_size=0.3, random_state=42)
+X_val, X_test, y_val, y_test = train_test_split(X_tem, y_tem, test_size=0.5, random_state=42)
+print(f"Number data of train set: {len(X_train)}")
+print(f"Number data of validate set: {len(X_val)}")
+print(f"Number data of test set: {len(X_test)}")
+
+# Normalization
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_val_scaled = scaler.transform(X_val)
+X_test_scaled = scaler.transform(X_test)
+
+# Train Random Forest model
+from sklearn.ensemble import RandomForestClassifier
+rd = RandomForestClassifier(random_state=42, n_estimators = 100)
+rd.fit(X_train_scaled, y_train)
+
+y_rd_pred = rd.predict(X_val_scaled) #model to predict
+y_rd_pred_train = rd.predict(X_train_scaled) #Predict back on train to check overfit
+y_rd_pred_val = rd.predict(X_val_scaled)  ##Predict on validate dataset
+```
 
 ### 4. Find out feature importance
+```sql
+# Get feature importance
+importances = rd.feature_importances_
 
-<img width="821" alt="Screen Shot 2025-03-07 at 11 46 03 PM" src="https://github.com/user-attachments/assets/d7c4ba95-f6c3-4cba-b6b9-d98ab9708de6" />
+feature_importance_df = pd.DataFrame({'Feature': X.columns, 'Importance': importances})
+feature_importance_df = feature_importance_df.sort_values(by="Importance", ascending=False)
+
+# Plot feature importance
+plt.figure(figsize=(8, 5))
+plt.barh(feature_importance_df['Feature'], feature_importance_df['Importance'], color='#6256CA')
+plt.xlabel('Feature Importance')
+plt.ylabel('Feature Name')
+plt.title('Feature Importance in Churn Prediction')
+plt.gca().invert_yaxis()
+plt.show()
+```
 
 <img width="975" alt="Screen Shot 2025-03-07 at 11 46 26 PM" src="https://github.com/user-attachments/assets/f0f29c5d-6ce9-4cd2-8730-944183d5a92a" />
 
@@ -123,13 +225,13 @@ The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, Daysinc
 <img width="927" alt="Screen Shot 2025-03-07 at 11 50 17 PM" src="https://github.com/user-attachments/assets/12f2343a-df7e-4a93-ac0a-39a037021eb1" />
 
   
-| Insights                                                        | Recommendations                                                                                                                                           |
-| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| New customers --> higher churn risk                  | Boost new customer engagement through personalized recommendations and exclusive discounts, fostering long-term brand loyalty.|
-| Lower cash back amount --> higher churn risk         | Offer increasing cashback percentages based on total spending, encouraging repeat purchases and long-term engagement.         |
-| Higher distance from warehouse --> higher churn risk | Offer free/discounted delivery for high-risk customers; Optimize fulfillment centers.                                         |
-| High Complain --> higher churn risk                  | Build long-term customer trust by addressing complaints swiftly, following up proactively, and offering personalized solutions that enhance satisfaction. |
-| Customers with recent orders --> higher churn risk   | Implement a quick feedback mechanism after purchase/delivery and analyze this trend across customer segments.                 |
+| Insights                                            | Recommendations                                                                                                       |
+| ----------------------------------------------------| --------------------------------------------------------------------------------------------------------------------- |
+| New customers --> higher churn risk                 | Boost new customer engagement through personalized recommendations and exclusive discounts, fostering long-term brand loyalty.|
+| Lower cash back amount --> higher churn risk        | Offer increasing cashback percentages based on total spending, encouraging repeat purchases and long-term engagement. |
+| Higher distance from warehouse --> higher churn risk| Offer free/discounted delivery for high-risk customers; Optimize fulfillment centers.                                 |
+| High Complain --> higher churn risk                 | Build long-term customer trust by addressing complaints swiftly, following up proactively, and offering personalized olutions that enhance satisfaction. |
+| Customers with recent orders --> higher churn risk  | Implement a quick feedback mechanism after purchase/delivery and analyze this trend across customer segments.         |
 
 ## IV. ML model for predicting churned users 
 
