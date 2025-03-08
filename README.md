@@ -222,8 +222,15 @@ The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, Daysinc
 
 #### Explain the Impact of Feature importance
 
-<img width="927" alt="Screen Shot 2025-03-07 at 11 50 17 PM" src="https://github.com/user-attachments/assets/12f2343a-df7e-4a93-ac0a-39a037021eb1" />
+```sql
+feature_draw = df_encoding[['Tenure', 'CashbackAmount', 'WarehouseToHome', 'Complain', 'DaySinceLastOrder']]
 
+for col in feature_draw.columns:
+    plt.figure(figsize=(6, 4))
+    sns.boxplot(x='Churn', y=col, data=df_encoding, palette={'0': '#6256CA', '1': '#86D293'})
+    plt.title(f'Boxplot of {col}')
+    plt.show()
+```
   
 | Insights                                            | Recommendations                                                                                                       |
 | ----------------------------------------------------| --------------------------------------------------------------------------------------------------------------------- |
@@ -237,42 +244,183 @@ The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, Daysinc
 
 ### 1. Training different models
 
-<img width="771" alt="Screen Shot 2025-03-08 at 12 14 46 AM" src="https://github.com/user-attachments/assets/bafc8619-b533-410c-a23c-a90685341008" />
+```sql
+#knn model
+from sklearn.neighbors import KNeighborsClassifier
 
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train_scaled, y_train) #model to learn
+y_knn_pred_val = knn.predict(X_val_scaled) #Predict on validate dataset
+y_knn_pred_train = knn.predict(X_train_scaled) #Predict back on train to check overfit
+```
+
+```sql
+# Logistic regression model
+from sklearn.linear_model import LogisticRegression
+
+lr = LogisticRegression(random_state=42)
+lr.fit(X_train_scaled, y_train) #model to learn
+y_lr_pred_val = lr.predict(X_val_scaled) #Predict on validate dataset
+y_lr_pred_train = lr.predict(X_train_scaled) #Predict back on train to check overfit
+```
+
+```sql
+# Random Forest model
+from sklearn.ensemble import RandomForestClassifier
+
+rd = RandomForestClassifier(random_state=42, n_estimators = 100)
+rd.fit(X_train_scaled, y_train)
+
+y_rd_pred_val = rd.predict(X_val_scaled)  ##Predict on validate dataset
+y_rd_pred_train = rd.predict(X_train_scaled) #Predict back on train to check overfit
+```
+
+```sql
+#AdaBoost (Adaptive Boosting)
+from sklearn.ensemble import AdaBoostClassifier
+
+ada = AdaBoostClassifier(n_estimators=50, learning_rate=1.0, random_state=42)
+ada.fit(X_train_scaled, y_train)
+y_ada_pred_val = ada.predict(X_val_scaled)
+y_ada_pred_train = ada.predict(X_train_scaled)
+```
 ### 2. Model evaluation
 
-<img width="497" alt="Screen Shot 2025-03-08 at 12 15 15 AM" src="https://github.com/user-attachments/assets/ad0d64e8-c56b-422e-ace4-0c2d114d4198" />
+```sql
+#knn model
+from sklearn.metrics import f1_score
+f1_score_train = f1_score(y_train, y_knn_pred_train)
+f1_score_val = f1_score(y_val, y_knn_pred_val)
+print(f1_score_train, f1_score_val)
+```
+0.7458745874587459 0.6095238095238096
+
+```sql
+#Logistic regression model
+from sklearn.metrics import f1_score
+f1_score_train = f1_score(y_train, y_lr_pred_train)
+f1_score_val = f1_score(y_val, y_lr_pred_val)
+print(f1_score_train, f1_score_val)
+```
+0.5985267034990792 0.647887323943662
+
+```sql
+#random forest
+from sklearn.metrics import f1_score
+f1_score_train = f1_score (y_train, y_rd_pred_train)
+f1_score_val = f1_score(y_val, y_rd_pred_val)
+print(f1_score_train, f1_score_val)
+```
+1.0 0.8888888888888888
+
+```sql
+#AdaBoost (Adaptive Boosting)
+from sklearn.metrics import f1_score
+f1_score_train = f1_score (y_train, y_ada_pred_train)
+f1_score_val = f1_score(y_val, y_ada_pred_val)
+print(f1_score_train, f1_score_val)
+```
+0.62751677852349 0.6636771300448431
+
  
 Apparently, Random Forest model offers the highest f1_score, so it is considered as base model.
 
 ### 3. Improve model 
 To enhance churn prediction model, we will perform hyperparameter tuning with GridSearchCV to find the optimal parameter combination for better performance.
 
-<img width="1104" alt="Screen Shot 2025-03-08 at 12 46 00 AM" src="https://github.com/user-attachments/assets/18bb2fa9-5ae0-46ea-a892-98dff28d657b" />
+```sql
+# Use GridSearchCV to find the best parameters
+from sklearn.model_selection import GridSearchCV
 
+param_grid = {
+    'n_estimators': [10, 100, 200, 500],
+    'max_depth': [None, 10, 15, 20],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'bootstrap': [True, False]
+}
+
+grid_search = GridSearchCV(estimator = RandomForestClassifier(), param_grid= param_grid, cv=5, scoring='f1')
+
+# Fit the model
+grid_search.fit(X_train, y_train)
+
+# Print the best parameters
+print("Best Parameters: ", grid_search.best_params_)
+
+# Evaluate the best model on the test set
+best_clf = grid_search.best_estimator_
+accuracy = best_clf.score(X_test, y_test)
+```
+Best Parameters:  {'bootstrap': False, 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
 
 ## V. ML model for segmenting churned users
 
 ### 1. Create Churn user dataset
-<img width="623" alt="Screen Shot 2025-03-08 at 12 22 03 AM" src="https://github.com/user-attachments/assets/c9105809-8eba-4d4e-9781-044553e313c0" />
 
+```sql
+# Create churn users datatset
+df_churn = df_encoding[df_encoding['Churn']==1]
+df_churn.head()
+```
+
+```sql
+# Normalizaiton
+X1 = df_churn.drop('Churn', axis=1)
+y1 = df_churn['Churn']
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+X1_scaled = scaler.fit_transform(X1)
+X1_scaled = pd.DataFrame(X1_scaled, columns=X1.columns)
+X1_scaled.head()
+```
 ### 2. Select the number of cluster
 To determine the optimal number of clusters for segmenting our churned customers, I employ the Elbow Method using K-means clustering.
 
-<img width="597" alt="Screen Shot 2025-03-08 at 12 23 35 AM" src="https://github.com/user-attachments/assets/ebcd1bc8-619c-4226-b08c-6d6f189d86d3" />
+```sql
+# Find the number of cluster
+
+from sklearn.cluster import KMeans
+from matplotlib import pyplot as plt
+k = range(1, 10)
+inertia = []
+for i in k:
+    km = KMeans(n_clusters=i, random_state=42)
+    km.fit(X1_scaled)
+    inertia.append(km.inertia_)
+plt.plot(k, inertia, '-o')
+plt.xlabel('number of cluster')
+plt.ylabel('inertia')
+plt.title('Elbow method showing the optimal k')
+plt.show()
+```
 
 <img width="644" alt="Screen Shot 2025-03-08 at 12 23 56 AM" src="https://github.com/user-attachments/assets/1e203bc5-aaed-46d4-87f0-11654f9580c4" />
 
 The inertia decreases slowly from 5 --> the number of cluster = 5
 
 ### 3. Model training
+```sql
+ Train K-Means model with optimal K
 
-<img width="558" alt="Screen Shot 2025-03-08 at 12 25 00 AM" src="https://github.com/user-attachments/assets/d979e3b1-2e88-4753-b883-4f566af1930c" />
+from sklearn.cluster import KMeans
+km = KMeans(n_clusters=5, random_state=42)
+
+# Assign Customers into different segments
+
+df_churn['Customer_segment'] = km.fit_predict(X1_scaled)
+df_churn.head()
+```
 
 We calculate the mean values of five key features for each cluster to identify distinct patterns and behaviors within groups of churned customers
-
-<img width="797" alt="Screen Shot 2025-03-08 at 12 48 08 AM" src="https://github.com/user-attachments/assets/5548c3de-7893-4876-83af-49351734ca55" />
-
+```sql
+features = ['Tenure', 'CashbackAmount', 'WarehouseToHome', 'Complain', 'DaySinceLastOrder']
+# Get average feature values per segment
+segment_analysis = df_churn.groupby('Customer_segment')[features].mean()
+print(segment_analysis)
+```
+<img width="588" alt="Screen Shot 2025-03-09 at 12 58 26 AM" src="https://github.com/user-attachments/assets/f51b5512-8249-486d-b891-fee12b3b8dcf" />
 
 ### 4.Segmentation and Recommendations for Promotion
 
