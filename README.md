@@ -133,17 +133,17 @@ The figure shows that Tenure, CashbackAmount, WarehousetoHome, Complain, Daysinc
 
 ## IV. ML model for predicting churned users 
 
-### Training different models
+### 1. Training different models
 
 <img width="771" alt="Screen Shot 2025-03-08 at 12 14 46 AM" src="https://github.com/user-attachments/assets/bafc8619-b533-410c-a23c-a90685341008" />
 
-### Model evaluation
+### 2. Model evaluation
 
 <img width="497" alt="Screen Shot 2025-03-08 at 12 15 15 AM" src="https://github.com/user-attachments/assets/ad0d64e8-c56b-422e-ace4-0c2d114d4198" />
  
 Apparently, Random Forest model offers the highest f1_score, so it is considered as base model.
 
-### Improve model 
+### 3. Improve model 
 To enhance churn prediction model, we will perform hyperparameter tuning with GridSearchCV to find the optimal parameter combination for better performance.
 
 <img width="1104" alt="Screen Shot 2025-03-08 at 12 46 00 AM" src="https://github.com/user-attachments/assets/18bb2fa9-5ae0-46ea-a892-98dff28d657b" />
