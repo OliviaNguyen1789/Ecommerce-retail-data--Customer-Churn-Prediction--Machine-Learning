@@ -58,10 +58,6 @@ V.[ML model for segmenting churned users](#v-ml-model-for-segmenting-churned-use
 | CashbackAmount               | Average cashback in last month                               |
 
 
-
-
-
-
 ## III. Exploring churn users' behaviour
 
 ### 1. Data Cleaning
