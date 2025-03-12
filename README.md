@@ -1,4 +1,4 @@
-# [Machine Learning]: E-commerce Customer Churn Prediction
+# Ecommerce retail data - Customer Churn Prediction | Machine Learning
 
 Author: [Uyen Nguyen]  
 
