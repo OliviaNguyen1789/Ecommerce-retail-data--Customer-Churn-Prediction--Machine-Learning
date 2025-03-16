@@ -12,8 +12,8 @@ Tools Used: Machine learning
 I. [📌 Background & Overview](#-background--overview)  
 II. [📂 Dataset Description](#-dataset-description)  
 III.[📊 Exploring churn users' behaviour](#-exploring-churn-users'-behaviour)  
-IV.[ ⚙️ ML model for predicting churned users ](#-ml-model-for-predicting-churned-users)  
-V.[ 🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-users)  
+IV.[⚙️ ML model for predicting churned users ](#-ml-model-for-predicting-churned-users)  
+V.[🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-users)  
 
 
 ## 📌 Background & Overview
