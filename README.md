@@ -1,9 +1,11 @@
+
+<img width="1000" alt="Screen Shot 2025-03-16 at 3 00 20 PM" src="https://github.com/user-attachments/assets/4cdfa840-e6e3-40be-ab32-f4acdaf6726b" />
+
+
 # Ecommerce retail data - Customer Churn Prediction | Machine Learning
 
 Author: [Uyen Nguyen]  
-
-Date: March 2025
-
+Date: March 2025  
 Tools Used: Machine learning
 
 ---
@@ -12,26 +14,29 @@ Tools Used: Machine learning
 I. [📌 Background & Overview](#-background--overview)  
 II. [📂 Dataset Description](#-dataset-description)  
 III. [📊 Exploring churn users' behaviour](#-exploring-churn-users-behaviour)  
-IV. [⚒️ ML model for predicting churned users] (#-ml-model-for-predicting-churned-users)  
+IV. [📊 ML model for predicting churned users] (#-ml-model-for-predicting-churned-users)   
 V. [🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-user)
 
 ## 📌 Background & Overview
 
-### Project Aim:
-- Develop a Random Forest machine learning model to predict churned users for an e-commerce company.
-- Use K-means clustering to segment churned users and recommend tailored promotions based on their behavior.
+### 📖 What is this project about?
+The objective of this project is to analyze a Bicycle Manufacturer dataset and develop a machine learning model to predict customer churn. This involves leveraging machine learning techniques, including Random Forest and K-means clustering. The insights gained will help stakeholders design effective retention strategies and minimize customer attrition.
   
-### Stakeholders: 
+### 👤 Who is this project for?
 - Data analysts & business analysts
 - Marketing team.
 
 
 ## 📂 Dataset Description
 
-- Source: The attached dataset provides customer information for an e-commerce company
+### 🌐 Data Source  
+- The attached dataset provides customer information for an e-commerce company
 - Size: 5630 rows, 20columns
 - Format: .xlsx
-- Table schema:
+
+### 🔀 Table schema
+<details>
+<summary>Table: Churn Prediction </summary>  
 
 | Variable                     | Description                                                  |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -56,10 +61,11 @@ V. [🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-chu
 | DaySinceLastOrder            | Day Since last order by customer                             |
 | CashbackAmount               | Average cashback in last month                               |
 
+</details>
 
 ## 📊 Exploring churn users' behaviour
 
-### 1. Data Cleaning
+### 1️⃣ Data Cleaning
 
 #### Handle missing values
 
@@ -117,6 +123,7 @@ for col in numeric_cols:
     plt.title(f'Boxplot of {col}')
     plt.show()
 ```
+<img width="927" alt="Screen Shot 2025-03-16 at 3 40 01 PM" src="https://github.com/user-attachments/assets/9591d63f-71af-4388-9ac6-905622c3933a" />
 
 
 *   Tenure: right-skewed, most customers clustered in 0 - 20
@@ -151,7 +158,7 @@ df = df.reset_index(drop=True)
 len(df_raw) - len(df)
 ```
 
-### 2. Feature engineering
+### 2️⃣ Feature engineering
 
 ```sql
 # Encoding columns:
@@ -160,7 +167,7 @@ df_encoding = pd.get_dummies(df, columns= col_encoding,drop_first=True)
 df_encoding.head()
 ```
 
-### 3. Training Random Forest model
+### 3️⃣ Training Random Forest model
 
 ```sql
 from sklearn.model_selection import train_test_split
@@ -193,7 +200,7 @@ y_rd_pred_train = rd.predict(X_train_scaled) #Predict back on train to check ove
 y_rd_pred_val = rd.predict(X_val_scaled)  ##Predict on validate dataset
 ```
 
-### 4. Find out feature importance
+### 4️⃣ Find out feature importance
 ```sql
 # Get feature importance
 importances = rd.feature_importances_
@@ -226,6 +233,9 @@ for col in feature_draw.columns:
     plt.title(f'Boxplot of {col}')
     plt.show()
 ```
+
+<img width="974" alt="Screen Shot 2025-03-16 at 3 48 19 PM" src="https://github.com/user-attachments/assets/9b1ef15c-e1d2-4e79-bec7-6b8534e5c03c" />
+
   
 | Insights                                            | Recommendations                                                                                                       |
 | ----------------------------------------------------| --------------------------------------------------------------------------------------------------------------------- |
@@ -235,9 +245,9 @@ for col in feature_draw.columns:
 | High Complain --> higher churn risk                 | Build long-term customer trust by addressing complaints swiftly, following up proactively, and offering personalized olutions that enhance satisfaction. |
 | Customers with recent orders --> higher churn risk  | Implement a quick feedback mechanism after purchase/delivery and analyze this trend across customer segments.         |
 
-## ⚒️ ML model for predicting churned users
+## 📊 ML model for predicting churned users
 
-### 1. Training different models
+### 1️⃣ Training different models
 
 ```sql
 #knn model
@@ -279,7 +289,7 @@ ada.fit(X_train_scaled, y_train)
 y_ada_pred_val = ada.predict(X_val_scaled)
 y_ada_pred_train = ada.predict(X_train_scaled)
 ```
-### 2. Model evaluation
+### 2️⃣ Model evaluation
 
 ```sql
 #knn model
@@ -320,7 +330,7 @@ print(f1_score_train, f1_score_val)
  
 Apparently, Random Forest model offers the highest f1_score, so it is considered as base model.
 
-### 3. Improve model 
+### 3️⃣ Improve model 
 To enhance churn prediction model, we will perform hyperparameter tuning with GridSearchCV to find the optimal parameter combination for better performance.
 
 ```sql
@@ -351,7 +361,7 @@ Best Parameters:  {'bootstrap': False, 'max_depth': None, 'min_samples_leaf': 1,
 
 ## 🏗️ ML model for segmenting churned users
 
-### 1. Create Churn user dataset
+### 1️⃣ Create Churn user dataset
 
 ```sql
 # Create churn users datatset
@@ -370,7 +380,7 @@ X1_scaled = scaler.fit_transform(X1)
 X1_scaled = pd.DataFrame(X1_scaled, columns=X1.columns)
 X1_scaled.head()
 ```
-### 2. Select the number of cluster
+### 2️⃣ Select the number of cluster
 To determine the optimal number of clusters for segmenting our churned customers, I employ the Elbow Method using K-means clustering.
 
 ```sql
@@ -395,7 +405,7 @@ plt.show()
 
 The inertia decreases slowly from 5 --> the number of cluster = 5
 
-### 3. Model training
+### 3️⃣ Model training
 ```sql
  Train K-Means model with optimal K
 
@@ -417,24 +427,17 @@ print(segment_analysis)
 ```
 <img width="588" alt="Screen Shot 2025-03-09 at 12 58 26 AM" src="https://github.com/user-attachments/assets/f51b5512-8249-486d-b891-fee12b3b8dcf" />
 
-### 4.Segmentation and Recommendations for Promotion
+### 4️⃣ egmentation and Recommendations for Promotion
 
 #### The characteristic of each segments
 
-Based on the clustering data provided for churned users, we can identify 5 distinct segments.
+Based on the clustering data for churned users, we have identified five distinct segments and proposed tailored promotion strategies for each:
 
-- Segment 1: High-Value, Satisfied but Inactive users
-- Segment 2: High-Value, quite-Satisfied and Active users.
-- Segment 3 : High-Value but Frequent complaints users.
-- Segment 4: New commers): New, Satisfied but Low-Value users.
-- Segment 5 (Occasional Buyers): Low-Value, engagement but frequent complaints.
-
-
-#### Promotion Strategy:
-
-- Segment 1: Provide personalized recommendations & exclusive Loyalty Discount; Provide a cashback incentive for returning customers.
-- Segment 2: Free or Discounted Express Shipping, Personalized Product Recommendations & Bundles.
-- Segment 3: free or reduce delivery cost, VIP Customer Care & Priority Support, Surprise "Thank You" Gift or Loyalty Perks
-- Segment 4: Time-Limited Bonus Coupon for new customers, Free Gift with Purchase Over Minimum Amount.
-- Segment 5: Provide exclusive trial offers and Limited-Time Flash Sale to boost the engagement, Offer customer support follow-up & service improvements.
+| Segment | Characteristics                                                | Promotion Strategy                                                                                               |
+| ------- | ---------------------------------------------------------------| ---------------------------------------------------------------------------------------------------------------- |
+|    1    | High-Value, Satisfied but Inactive Users                       | Personalized recommendations & exclusive loyalty discounts, cashback incentives for returning customers.         |
+|    2    | High-Value, Quite-Satisfied and Active Users                   | Free or discounted express shipping, personalized product recommendations & bundles.                             |
+|    3    | High-Value but Frequent complaints users                       | Free or reduced delivery costs, VIP customer care & priority support, surprise "Thank You" gift or loyalty perks |
+|    4    | Newcomers – New, Satisfied but Low-Value Users                 | Time-limited bonus coupon for new customers, free gift with purchase over a minimum amount.                      |
+|    5    | Occasional Buyers – Low-Value, Engaged but Frequent Complaints | Exclusive trial offers and limited-time flash sales to boost engagement, customer support follow-up & service improvements. |
 
