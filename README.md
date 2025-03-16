@@ -2,7 +2,7 @@
 <img width="1000" alt="Screen Shot 2025-03-16 at 3 00 20 PM" src="https://github.com/user-attachments/assets/4cdfa840-e6e3-40be-ab32-f4acdaf6726b" />
 
 
-# Ecommerce retail data - Customer Churn Prediction | Machine Learning
+# Project Title: Ecommerce retail data - Customer Churn Prediction | Machine Learning
 
 Author: [Uyen Nguyen]  
 Date: March 2025  
