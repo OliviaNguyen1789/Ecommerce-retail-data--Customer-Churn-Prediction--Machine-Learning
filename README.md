@@ -12,8 +12,8 @@ Tools Used: Machine learning
 I. [📌 Background & Overview](#-background--overview)  
 II. [📂 Dataset Description](#-dataset-description)  
 III. [📊 Exploring churn users' behaviour](#-exploring-churn-users-behaviour)  
-IV. [⚙️ ML model for predicting churned users] (#-⚙️-ml-model-for-predicting-churned-users)  
-V. [🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-users)
+IV. [⚒️ ML model for predicting churned users] (#-ml-model-for-predicting-churned-users)  
+V. [🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-user)
 
 ## 📌 Background & Overview
 
@@ -235,7 +235,7 @@ for col in feature_draw.columns:
 | High Complain --> higher churn risk                 | Build long-term customer trust by addressing complaints swiftly, following up proactively, and offering personalized olutions that enhance satisfaction. |
 | Customers with recent orders --> higher churn risk  | Implement a quick feedback mechanism after purchase/delivery and analyze this trend across customer segments.         |
 
-## ⚙️ ML model for predicting churned users 
+## ⚒️ ML model for predicting churned users
 
 ### 1. Training different models
 
