@@ -15,7 +15,7 @@ I. [📌 Background & Overview](#-background--overview)
 II. [📂 Dataset Description](#-dataset-description)  
 III. [📊 Exploring churn users' behaviour](#-exploring-churn-users-behaviour)  
 IV. [📊 ML model for predicting churned users] (#-ml-model-for-predicting-churned-users)   
-V. [🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-user)
+V. [⚒️ ML model for segmenting churned users](#-#%EF%B8%8F-ml-model-for-segmenting-churned-users)
 
 ## 📌 Background & Overview
 
@@ -359,7 +359,7 @@ accuracy = best_clf.score(X_test, y_test)
 ```
 Best Parameters:  {'bootstrap': False, 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
 
-## 🏗️ ML model for segmenting churned users
+## ⚒️ ML model for segmenting churned users
 
 ### 1️⃣ Create Churn user dataset
 
@@ -428,8 +428,6 @@ print(segment_analysis)
 <img width="588" alt="Screen Shot 2025-03-09 at 12 58 26 AM" src="https://github.com/user-attachments/assets/f51b5512-8249-486d-b891-fee12b3b8dcf" />
 
 ### 4️⃣ egmentation and Recommendations for Promotion
-
-#### The characteristic of each segments
 
 Based on the clustering data for churned users, we have identified five distinct segments and proposed tailored promotion strategies for each:
 
