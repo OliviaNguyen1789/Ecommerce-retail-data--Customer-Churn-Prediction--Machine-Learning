@@ -9,14 +9,14 @@ Tools Used: Machine learning
 ---
 
 ## 📑 Table of Contents  
-I. [Introduction](#i-introduction)  
-II. [Dataset Description](#ii-dataset-description)  
-III.[Exploring churn users' behaviour](#iii-exploring-churn-users'-behaviour)  
-IV.[ML model for predicting churned users ](#iv-ml-model-for-predicting-churned-users)  
-V.[ML model for segmenting churned users](#v-ml-model-for-segmenting-churned-users)  
+I. [📌 Background & Overview](#-background--overview)  
+II. [📂 Dataset Description](#-dataset-description)  
+III.[📊 Exploring churn users' behaviour](#-exploring-churn-users'-behaviour)  
+IV.[ ⚙️ ML model for predicting churned users ](#-ml-model-for-predicting-churned-users)  
+V.[ 🏗️ ML model for segmenting churned users](#-ml-model-for-segmenting-churned-users)  
 
 
-## I. Introduction
+## 📌 Background & Overview
 
 ### Project Aim:
 - Develop a Random Forest machine learning model to predict churned users for an e-commerce company.
@@ -27,7 +27,7 @@ V.[ML model for segmenting churned users](#v-ml-model-for-segmenting-churned-use
 - Marketing team.
 
 
-## II. Dataset Description
+## 📂 Dataset Description
 
 - Source: The attached dataset provides customer information for an e-commerce company
 - Size: 5630 rows, 20columns
@@ -58,7 +58,7 @@ V.[ML model for segmenting churned users](#v-ml-model-for-segmenting-churned-use
 | CashbackAmount               | Average cashback in last month                               |
 
 
-## III. Exploring churn users' behaviour
+## 📊 Exploring churn users' behaviour
 
 ### 1. Data Cleaning
 
@@ -236,7 +236,7 @@ for col in feature_draw.columns:
 | High Complain --> higher churn risk                 | Build long-term customer trust by addressing complaints swiftly, following up proactively, and offering personalized olutions that enhance satisfaction. |
 | Customers with recent orders --> higher churn risk  | Implement a quick feedback mechanism after purchase/delivery and analyze this trend across customer segments.         |
 
-## IV. ML model for predicting churned users 
+## ⚙️ ML model for predicting churned users 
 
 ### 1. Training different models
 
@@ -350,7 +350,7 @@ accuracy = best_clf.score(X_test, y_test)
 ```
 Best Parameters:  {'bootstrap': False, 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
 
-## V. ML model for segmenting churned users
+## 🏗️ ML model for segmenting churned users
 
 ### 1. Create Churn user dataset
 
