@@ -20,7 +20,8 @@ V. [🚩 ML model for segmenting churned users](#-ml-model-for-segmenting-churne
 ## 📌 Background & Overview
 
 ### 📖 What is this project about?
-The objective of this project is to analyze a Bicycle Manufacturer dataset and develop a machine learning model to predict customer churn. This involves leveraging machine learning techniques, including Random Forest and K-means clustering. The insights gained will help stakeholders design effective retention strategies and minimize customer attrition.
+- The objective of this project is to analyze a Bicycle Manufacturer dataset and develop a machine learning model to predict customer churn. 
+- This involves leveraging machine learning techniques, including Random Forest and K-means clustering. The insights gained will help stakeholders design effective retention strategies and minimize customer attrition.
   
 ### 👤 Who is this project for?
 - Data analysts & business analysts
@@ -427,7 +428,7 @@ print(segment_analysis)
 ```
 <img width="588" alt="Screen Shot 2025-03-09 at 12 58 26 AM" src="https://github.com/user-attachments/assets/f51b5512-8249-486d-b891-fee12b3b8dcf" />
 
-### 4️⃣ egmentation and Recommendations for Promotion
+### 4️⃣ Segmentation and Recommendations for Promotion
 
 Based on the clustering data for churned users, we have identified five distinct segments and proposed tailored promotion strategies for each:
 
