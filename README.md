@@ -4,7 +4,7 @@
 
 # Project Title: Ecommerce retail data - Customer Churn Prediction | Machine Learning
 
-Author: [Uyen Nguyen]  
+Author: [Olivia Nguyen]  
 Date: March 2025  
 Tools Used: Machine learning
 
